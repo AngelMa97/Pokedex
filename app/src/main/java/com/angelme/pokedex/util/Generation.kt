@@ -9,5 +9,5 @@ enum class Generation(val offset: Int, val noPokemon: Int) {
     SIXTH(649, 72),
     SEVENTH(721, 88),
     EIGHTH(809, 96),
-    NINETH(905, 120)
+    NINTH(905, 120)
 }

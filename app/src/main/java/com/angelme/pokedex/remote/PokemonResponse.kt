@@ -9,6 +9,7 @@ import java.lang.Exception
 
 data class PokemonResponse(
     val abilities: List<AbilityResponse>,
+    val id: Int,
     val name: String,
     val sprites: SpriteResponse,
     val stats: List<StatResponse>,
@@ -17,6 +18,7 @@ data class PokemonResponse(
     fun pokemonResponseToPokemon(): Pokemon =
         Pokemon(
             abilities.map { x -> x.ability.name },
+            id,
             name,
             listOf(sprites.front, sprites.frontShiny),
             stats.map { x -> Stat(x.stat.name, x.baseStat) },

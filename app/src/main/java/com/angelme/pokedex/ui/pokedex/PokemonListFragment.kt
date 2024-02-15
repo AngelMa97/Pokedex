@@ -1,4 +1,4 @@
-package com.angelme.pokedex.ui
+package com.angelme.pokedex.ui.pokedex
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.FragmentPokemonListBinding
+import com.angelme.pokedex.ui.MainViewModel
+import com.angelme.pokedex.ui.model.Pokemon
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity.Companion.POKEMON_DETAIL
 import com.angelme.pokedex.util.Generation
@@ -18,7 +21,7 @@ import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PokemonListFragment : Fragment() {
+class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
 
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel: MainViewModel by activityViewModels()
@@ -41,7 +44,7 @@ class PokemonListFragment : Fragment() {
                 val popUp = PopupMenu(requireContext(), it)
                 popUp.menuInflater.inflate(R.menu.generation_menu, popUp.menu)
                 popUp.setOnMenuItemClickListener {
-                     generation = when(it.itemId) {
+                    generation = when (it.itemId) {
                         R.id.first_generation -> Generation.FIRST
                         R.id.second_generation -> Generation.SECOND
                         R.id.third_generation -> Generation.THIRD
@@ -50,29 +53,31 @@ class PokemonListFragment : Fragment() {
                         R.id.sixth_generation -> Generation.SIXTH
                         R.id.seventh_generation -> Generation.SEVENTH
                         R.id.eighth_generation -> Generation.EIGHTH
-                        else -> Generation.NINETH
+                        else -> Generation.NINTH
                     }
                     viewModel.getPokemonByGeneration(generation)
                     true
                 }
                 popUp.show()
             }
-            pokedexList.setOnItemClickListener { parent, view, position, id ->
-                viewModel.getPokemonById(generation, position)
-            }
+            pokedexList.layoutManager =
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         }
     }
 
     private fun setObservers() {
         viewModel.apply {
             pokemonByGeneration.observe(viewLifecycleOwner) {
-                binding.pokedexList.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, it)
-            }
-            pokemonByIndex.observe(viewLifecycleOwner) {
-                val ntnt = Intent(requireContext(), PokemonDetailActivity::class.java)
-                ntnt.putExtra(POKEMON_DETAIL, Gson().toJson(it))
-                startActivity(ntnt)
+                binding.pokedexList.adapter = PokedexAdapter(
+                    it, resources, requireContext(), this@PokemonListFragment
+                )
             }
         }
+    }
+
+    override fun onPokedexItemClickListener(pokemon: Pokemon) {
+        val ntnt = Intent(requireContext(), PokemonDetailActivity::class.java)
+        ntnt.putExtra(POKEMON_DETAIL, Gson().toJson(pokemon))
+        startActivity(ntnt)
     }
 }
