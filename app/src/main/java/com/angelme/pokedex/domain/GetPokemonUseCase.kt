@@ -6,11 +6,7 @@ import com.angelme.pokedex.ui.model.Pokemon
 import javax.inject.Inject
 
 class GetPokemonUseCase @Inject constructor(
-    //private val pokemonRepository: PokemonRepository
-    private val apiService: PokedexService
+    private val pokemonRepository: PokemonRepository
 ) {
-    //suspend fun invoke(name: String): Pokemon = pokemonRepository.getPokemon(name)
-
-    suspend operator fun invoke(index: Int) =
-        apiService.getPokemon(index).body()!!.pokemonResponseToPokemon()
+    suspend operator fun invoke(index: Int): Pokemon = pokemonRepository.getPokemon(index)
 }

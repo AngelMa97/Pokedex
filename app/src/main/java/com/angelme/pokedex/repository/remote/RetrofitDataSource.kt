@@ -3,24 +3,24 @@ package com.angelme.pokedex.repository.remote
 import com.angelme.pokedex.remote.PokedexService
 import com.angelme.pokedex.remote.PokemonGenerationResponse
 import com.angelme.pokedex.remote.PokemonResponse
+import com.angelme.pokedex.ui.model.Pokemon
+import com.angelme.pokedex.ui.model.PokemonGeneration
+import com.angelme.pokedex.util.Generation
 import javax.inject.Inject
 
 class RetrofitDataSource @Inject constructor(
     private val apiService: PokedexService
-)/*: RemoteDataSource {
+) : RemoteDataSource {
 
     override suspend fun getPokemonListByGeneration(
-        limit: Int,
-        offset: Int
-    ): PokemonGenerationResponse {
-        apiService.getPokemonListByGeneration(limit, offset).execute().let {
-            return it.body() ?: throw Exception("Api fails")
-        }
+        generation: Generation
+    ): PokemonGeneration {
+        val body =
+            apiService.getPokemonListByGeneration(generation.noPokemon, generation.offset).body()
+        val pokemonList = body?.pokemonGenerationResponseToPokemonGeneration()
+        return pokemonList!!
     }
 
-    override suspend fun getPokemon(name: String): PokemonResponse {
-        apiService.getPokemon(name).execute().let {
-            return it.body() ?: throw Exception("Api fails")
-        }
-    }
-}*/
+    override suspend fun getPokemon(index: Int): Pokemon =
+        apiService.getPokemon(index).body()!!.pokemonResponseToPokemon()
+}
