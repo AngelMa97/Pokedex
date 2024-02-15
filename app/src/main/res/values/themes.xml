@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PokeDex" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/red_pokedex</item>
+        <item name="colorSecondary">@color/blue_pokedex</item>
+        <item name="colorTertiary">@color/green_pokedex</item>
+    </style>
+
+    <style name="Theme.PokeDex" parent="Base.Theme.PokeDex" />
+</resources>

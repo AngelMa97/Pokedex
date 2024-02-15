@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red_pokedex">#CA2E35</color>
+    <color name="blue_pokedex">#54A8F7</color>
+    <color name="green_pokedex">#6AAC67</color>
+
+    <color name="type_fighting">#BE4B6A</color>
+    <color name="type_psychic">#E8797A</color>
+    <color name="type_poison">#A26DC3</color>
+    <color name="type_dragon">#306BBE</color>
+    <color name="type_ghost">#DE5768BB</color>
+    <color name="type_dark">#595365</color>
+    <color name="type_ground">#CC7C50</color>
+    <color name="type_fire">#F1A162</color>
+    <color name="type_fairy">#DF93E1</color>
+    <color name="type_water">#5D8ED0</color>
+    <color name="type_flying">#94A7D9</color>
+    <color name="type_normal">#9299A0</color>
+    <color name="type_rock">#C4B890</color>
+    <color name="type_electric">#EED35A</color>
+    <color name="type_bug">#9AC049</color>
+    <color name="type_grass">#79B966</color>
+    <color name="type_ice">#8ACCC0</color>
+    <color name="type_steel">#668D9F</color>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/first_generation"
+        android:title="@string/first_generation" />
+    <item
+        android:id="@+id/second_generation"
+        android:title="@string/second_generation" />
+    <item
+        android:id="@+id/third_generation"
+        android:title="@string/third_generation" />
+    <item
+        android:id="@+id/fourth_generation"
+        android:title="@string/fourth_generation" />
+    <item
+        android:id="@+id/fifth_generation"
+        android:title="@string/fifth_generation" />
+    <item
+        android:id="@+id/sixth_generation"
+        android:title="@string/sixth_generation" />
+    <item
+        android:id="@+id/seventh_generation"
+        android:title="@string/seventh_generation" />
+    <item
+        android:id="@+id/eighth_generation"
+        android:title="@string/eighth_generation" />
+    <item
+        android:id="@+id/nineth_generation"
+        android:title="@string/nineth_generation" />
+</menu>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">PokeDex</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pokedex">Pokedex</string>
+    <string name="my_pokemon">My pokemon</string>
+    <string name="first_generation">First Generation</string>
+    <string name="second_generation">Second Generation</string>
+    <string name="third_generation">Third Generation</string>
+    <string name="fourth_generation">Fourth Generation</string>
+    <string name="fifth_generation">Fifth Generation</string>
+    <string name="sixth_generation">Sixth Generation</string>
+    <string name="seventh_generation">Seventh Generation</string>
+    <string name="eighth_generation">Eighth Generation</string>
+    <string name="nineth_generation">Nineth Generation</string>
+    <string name="pick_a_pokemon_generation">Pick a pokemon generation</string>
+    <string name="abilities">Abilities</string>
+    <string name="stats">Stats</string>
+</resources>
