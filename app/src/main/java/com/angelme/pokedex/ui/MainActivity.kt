@@ -2,12 +2,9 @@ package com.angelme.pokedex.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import com.angelme.pokedex.R
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
 import com.angelme.pokedex.databinding.ActivityMainBinding
-import com.angelme.pokedex.util.Generation
 
 
 @AndroidEntryPoint

@@ -1,8 +1,6 @@
 package com.angelme.pokedex.repository.remote
 
 import com.angelme.pokedex.remote.PokedexService
-import com.angelme.pokedex.remote.PokemonGenerationResponse
-import com.angelme.pokedex.remote.PokemonResponse
 import com.angelme.pokedex.ui.model.Pokemon
 import com.angelme.pokedex.ui.model.PokemonGeneration
 import com.angelme.pokedex.util.Generation

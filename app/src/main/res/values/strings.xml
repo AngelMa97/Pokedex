@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">PokeDex</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pokedex">Pokedex</string>
     <string name="my_pokemon">My pokemon</string>
     <string name="first_generation">First Generation</string>
@@ -16,4 +14,8 @@
     <string name="pick_a_pokemon_generation">Pick a pokemon generation</string>
     <string name="abilities">Abilities</string>
     <string name="stats">Stats</string>
+    <string name="stat_icon">Stat icon</string>
+    <string name="pokemon_normal_sprite">Pokemon normal sprite</string>
+    <string name="pokemon_shiny_sprite">Pokemon shiny sprite</string>
+    <string name="capture_pokemon">Capture Pokemon</string>
 </resources>

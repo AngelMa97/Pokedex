@@ -1,6 +1,5 @@
 package com.angelme.pokedex.ui.pokemondetail
 
-import android.app.ActionBar.LayoutParams
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -31,10 +30,10 @@ class PokemonStatsAdapter(private val stats: List<Stat>, val resources: Resource
             view.apply {
                 statIcon.setImageDrawable(
                     when (item.name) {
-                        "attack", "special-attack" -> resources.getDrawable(R.drawable.sword)
-                        "defense", "special-defense" -> resources.getDrawable(R.drawable.shield)
-                        "hp" -> resources.getDrawable(R.drawable.health)
-                        else -> resources.getDrawable(R.drawable.dash)
+                        "attack", "special-attack" -> resources.getDrawable(R.drawable.sword, null)
+                        "defense", "special-defense" -> resources.getDrawable(R.drawable.shield, null)
+                        "hp" -> resources.getDrawable(R.drawable.health, null)
+                        else -> resources.getDrawable(R.drawable.dash, null)
                     }
                 )
                 statName.text = item.name
