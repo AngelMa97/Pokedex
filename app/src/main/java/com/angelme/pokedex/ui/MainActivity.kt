@@ -5,6 +5,7 @@ import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
 import com.angelme.pokedex.databinding.ActivityMainBinding
+import com.angelme.pokedex.repository.WorkResult
 
 
 @AndroidEntryPoint
@@ -22,5 +23,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
+        viewModel.iuState.observe(this@MainActivity) {
+            when(it) {
+                is WorkResult.Loading -> binding.progressIndicator.show()
+                else -> binding.progressIndicator.hide()
+            }
+        }
     }
 }

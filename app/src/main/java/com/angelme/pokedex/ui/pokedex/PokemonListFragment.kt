@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.FragmentPokemonListBinding
+import com.angelme.pokedex.repository.WorkResult
 import com.angelme.pokedex.ui.MainViewModel
 import com.angelme.pokedex.ui.model.Pokemon
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity
@@ -67,10 +68,23 @@ class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
 
     private fun setObservers() {
         viewModel.apply {
-            pokemonByGeneration.observe(viewLifecycleOwner) {
-                binding.pokedexList.adapter = PokedexAdapter(
-                    it, resources, requireContext(), this@PokemonListFragment
-                )
+            binding.apply {
+                iuState.observe(viewLifecycleOwner) {
+                    when (it) {
+                        is WorkResult.Success -> {
+                            pokedexList.adapter = PokedexAdapter(
+                                it.data, resources, requireContext(), this@PokemonListFragment
+                            )
+                            pickGenerationButton.isEnabled = true
+                            loadingOverlay.visibility = View.GONE
+                        }
+                        is WorkResult.Loading -> {
+                            pickGenerationButton.isEnabled = false
+                            loadingOverlay.visibility = View.VISIBLE
+                        }
+                        else -> { }
+                    }
+                }
             }
         }
     }

@@ -6,6 +6,8 @@
     <color name="blue_pokedex">#54A8F7</color>
     <color name="green_pokedex">#6AAC67</color>
 
+    <color name="loading_overlay">#6D000000</color>
+
     <color name="type_fighting">#BE4B6A</color>
     <color name="type_psychic">#E8797A</color>
     <color name="type_poison">#A26DC3</color>
