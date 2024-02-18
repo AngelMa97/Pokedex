@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.ActivityPokemonDetailBinding
+import com.angelme.pokedex.repository.WorkResult
 import com.angelme.pokedex.ui.model.Pokemon
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -19,6 +22,7 @@ class PokemonDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPokemonDetailBinding
     private lateinit var pokemon: Pokemon
+    private val pokemonDetailViewModel: PokemonDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,8 @@ class PokemonDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setViews()
+
+        setObservers()
     }
 
     private fun setViews() {
@@ -103,6 +109,43 @@ class PokemonDetailActivity : AppCompatActivity() {
 
                 })
 
+            }
+        }
+    }
+
+    private fun setObservers() {
+        binding.apply {
+            pokemonDetailViewModel.apply {
+                getMyPokemonById(pokemon.id)
+                myPokemonListUiState.observe(this@PokemonDetailActivity) {
+                    when (it) {
+                        is WorkResult.Error -> progressIndicator.hide()
+                        WorkResult.Loading -> {
+                            loadingOverlay.visibility = View.VISIBLE
+                            progressIndicator.show()
+                            toFavorites.isEnabled = false
+                        }
+
+                        is WorkResult.Success -> {
+                            loadingOverlay.visibility = View.GONE
+                            progressIndicator.hide()
+                            toFavorites.isEnabled = true
+                            toFavorites.setOnClickListener {
+                                addPokemonToMyList(pokemon)
+                            }
+                            it.data?.let {
+                                toFavorites.setImageDrawable(
+                                    resources.getDrawable(R.drawable.ic_remove, null)
+                                )
+                                toFavorites.setOnClickListener {
+                                    removePokemonFromMyList(pokemon)
+                                }
+                            } ?: toFavorites.setImageDrawable(
+                                resources.getDrawable(R.drawable.ic_check, null)
+                            )
+                        }
+                    }
+                }
             }
         }
     }

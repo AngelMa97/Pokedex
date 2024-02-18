@@ -10,7 +10,7 @@
     <string name="sixth_generation">Sixth Generation</string>
     <string name="seventh_generation">Seventh Generation</string>
     <string name="eighth_generation">Eighth Generation</string>
-    <string name="nineth_generation">Nineth Generation</string>
+    <string name="nineth_generation">Ninth Generation</string>
     <string name="pick_a_pokemon_generation">Pick a pokemon generation</string>
     <string name="abilities">Abilities</string>
     <string name="stats">Stats</string>
@@ -18,4 +18,5 @@
     <string name="pokemon_normal_sprite">Pokemon normal sprite</string>
     <string name="pokemon_shiny_sprite">Pokemon shiny sprite</string>
     <string name="capture_pokemon">Capture Pokemon</string>
+    <string name="you_haven_t_added_any_pokemon_yet">You haven´t added any Pokemon yet, you could add Pokemon to your list using the pokemon detail view</string>
 </resources>

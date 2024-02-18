@@ -40,18 +40,3 @@ object ApiModule {
     @Provides
     fun provideApiService(retrofit: Retrofit) = retrofit.create(PokedexService::class.java)
 }
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-
-    @Binds
-    abstract fun bindRepository(
-        defaultRepository: DefaultRepository
-    ): PokemonRepository
-
-    @Binds
-    abstract fun bindRemoteDatasource(
-        retrofitDataSource: RetrofitDataSource
-    ): RemoteDataSource
-}

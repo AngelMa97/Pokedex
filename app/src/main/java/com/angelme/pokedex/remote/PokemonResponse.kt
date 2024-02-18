@@ -6,7 +6,6 @@ import com.angelme.pokedex.util.PokemonType
 import com.google.gson.annotations.SerializedName
 import java.lang.Exception
 
-
 data class PokemonResponse(
     val abilities: List<AbilityResponse>,
     val id: Int,

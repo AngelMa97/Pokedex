@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/fragmentPokedex">
+
+    <fragment
+        android:id="@+id/fragmentPokedex"
+        android:name="com.angelme.pokedex.ui.pokedex.PokemonListFragment"
+        tools:layout="@layout/fragment_pokemon_list" />
+
+    <fragment
+        android:id="@+id/fragmentMyPokemonList"
+        android:name="com.angelme.pokedex.ui.mypokemon.MyPokemonFragment"
+        tools:layout="@layout/fragment_my_pokemon" />
+
+</navigation>
