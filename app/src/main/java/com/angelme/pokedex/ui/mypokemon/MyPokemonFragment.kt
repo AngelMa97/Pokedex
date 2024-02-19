@@ -2,13 +2,13 @@ package com.angelme.pokedex.ui.mypokemon
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.FragmentMyPokemonBinding
 import com.angelme.pokedex.repository.WorkResult
 import com.angelme.pokedex.ui.model.Pokemon
@@ -16,6 +16,7 @@ import com.angelme.pokedex.ui.pokedex.PokedexAdapter
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MyPokemonFragment : Fragment(), PokedexAdapter.PokedexItemListener {
@@ -36,8 +37,22 @@ class MyPokemonFragment : Fragment(), PokedexAdapter.PokedexItemListener {
     }
 
     private fun setViews() {
-        binding.pokedexList.layoutManager =
-            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        binding.apply {
+            pokedexList.layoutManager =
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            myPokemonList.layoutManager =
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            searchView.editText.apply {
+                addTextChangedListener {
+                    myPokemonViewModel.filterInfo(it.toString())
+                }
+                setOnEditorActionListener { v, actionId, event ->
+                    myPokemonViewModel.filterInfo(this.text.toString())
+                    false
+                }
+            }
+            searchView.setupWithSearchBar(searchBar)
+        }
     }
 
     private fun setObservers() {
@@ -49,6 +64,7 @@ class MyPokemonFragment : Fragment(), PokedexAdapter.PokedexItemListener {
                         loadingOverlay.visibility = View.VISIBLE
                         pokedexList.visibility = View.INVISIBLE
                     }
+
                     is WorkResult.Success -> {
                         if (it.data.isEmpty()) {
                             noPokemonInListView.visibility = View.VISIBLE
@@ -61,6 +77,17 @@ class MyPokemonFragment : Fragment(), PokedexAdapter.PokedexItemListener {
                             pokedexList.visibility = View.VISIBLE
                         }
                         loadingOverlay.visibility = View.GONE
+                    }
+                }
+            }
+            myPokemonViewModel.uiStatePokemonFilteredList.observe(viewLifecycleOwner) {
+                when (it) {
+                    is WorkResult.Error -> TODO()
+                    WorkResult.Loading -> TODO()
+                    is WorkResult.Success -> {
+                        myPokemonList.adapter = PokedexAdapter(
+                            it.data, resources, requireContext(), this@MyPokemonFragment
+                        )
                     }
                 }
             }

@@ -18,6 +18,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <HorizontalScrollView
+        android:id="@+id/filters_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickGenerationButton">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/filterBy"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:singleLine="true" />
+
+    </HorizontalScrollView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pokedexList"
         android:layout_width="0dp"
@@ -27,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pickGenerationButton" />
+        app:layout_constraintTop_toBottomOf="@+id/filters_container" />
 
     <View
         android:id="@+id/loading_overlay"

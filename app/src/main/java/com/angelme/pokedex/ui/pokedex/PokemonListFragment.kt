@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +17,8 @@ import com.angelme.pokedex.ui.model.Pokemon
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity.Companion.POKEMON_DETAIL
 import com.angelme.pokedex.util.Generation
+import com.angelme.pokedex.util.PokemonType
+import com.google.android.material.chip.Chip
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,12 +35,12 @@ class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentPokemonListBinding.inflate(inflater)
-        setViews()
+        setViews(inflater)
         setObservers()
         return binding.root
     }
 
-    private fun setViews() {
+    private fun setViews(inflater: LayoutInflater) {
         binding.apply {
             pickGenerationButton.setOnClickListener {
                 val popUp = PopupMenu(requireContext(), it)
@@ -60,6 +61,15 @@ class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
                     true
                 }
                 popUp.show()
+            }
+            for (type in PokemonType.entries) {
+                val chip = inflater.inflate(R.layout.type_chip, filterBy, false) as Chip
+                chip.text = type.name
+                chip.setChipBackgroundColorResource(type.color)
+                chip.setOnCheckedChangeListener { _, _ ->
+                    viewModel.modifyFilters(type)
+                }
+                filterBy.addView(chip)
             }
             pokedexList.layoutManager =
                 GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)

@@ -6,6 +6,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.mypokemon.MyPokemonFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_a_pokemon" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.search.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/search_a_pokemon">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myPokemonList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:visibility="visible" />
+
+    </com.google.android.material.search.SearchView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pokedexList"
         android:layout_width="0dp"
@@ -16,7 +48,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/loading_overlay"
@@ -38,14 +71,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
 
         <TextView
+            style="@style/TextAppearance.Material3.HeadlineLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            style="@style/TextAppearance.Material3.HeadlineLarge"
-            android:text="@string/you_haven_t_added_any_pokemon_yet" />
+            android:text="@string/you_haven_t_added_any_pokemon_yet"
+            android:textAlignment="center" />
 
         <ImageView
             android:layout_width="match_parent"

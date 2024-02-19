@@ -19,4 +19,5 @@
     <string name="pokemon_shiny_sprite">Pokemon shiny sprite</string>
     <string name="capture_pokemon">Capture Pokemon</string>
     <string name="you_haven_t_added_any_pokemon_yet">You haven´t added any Pokemon yet, you could add Pokemon to your list using the pokemon detail view</string>
+    <string name="search_a_pokemon">Search a pokemon</string>
 </resources>
