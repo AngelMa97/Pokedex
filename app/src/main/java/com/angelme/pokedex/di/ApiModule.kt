@@ -1,5 +1,8 @@
 package com.angelme.pokedex.di
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import com.angelme.pokedex.remote.PokedexService
 import com.angelme.pokedex.repository.DefaultRepository
 import com.angelme.pokedex.repository.PokemonRepository
@@ -10,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,11 +24,36 @@ import javax.inject.Singleton
 object ApiModule {
 
     const val BASE_URL = "https://pokeapi.co/api/v2/"
+    private val cacheSize = (5 * 1024 * 1024).toLong()
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun hasNetwork(app: Application): Boolean {
+        val connectivityManager =
+            app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        return activeNetwork != null
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(app: Application): OkHttpClient {
+        val cache = Cache(app.cacheDir, cacheSize)
+        return OkHttpClient
+            .Builder()
+            .cache(cache)
+            .addInterceptor { chain ->
+                var request = chain.request()
+                request = if (hasNetwork(app)) {
+                    request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
+                } else {
+                    request.newBuilder().header(
+                        "Cache-Control",
+                        "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
+                    ).build()
+                }
+                chain.proceed(request)
+            }
             .build()
     }
 
