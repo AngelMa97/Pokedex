@@ -40,6 +40,11 @@ class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.removeAllFilters()
+    }
+
     private fun setViews(inflater: LayoutInflater) {
         binding.apply {
             pickGenerationButton.setOnClickListener {

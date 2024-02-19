@@ -76,6 +76,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun removeAllFilters() {
+        filters.clear()
+        _iuState.postValue(WorkResult.Success(pokemonListGeneration))
+    }
+
     init {
         getPokemonByGeneration(Generation.FIRST)
     }
