@@ -9,13 +9,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.ActivityMainBinding
 import com.angelme.pokedex.repository.WorkResult
-import com.angelme.pokedex.ui.mypokemon.MyPokemonViewModel
+import com.angelme.pokedex.ui.pokedex.PokedexViewModel
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: PokedexViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

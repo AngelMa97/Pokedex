@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.FragmentPokemonListBinding
 import com.angelme.pokedex.repository.WorkResult
-import com.angelme.pokedex.ui.MainViewModel
 import com.angelme.pokedex.ui.model.Pokemon
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity
 import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity.Companion.POKEMON_DETAIL
@@ -26,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
 
     private lateinit var binding: FragmentPokemonListBinding
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: PokedexViewModel by activityViewModels()
     private var generation = Generation.FIRST
 
     override fun onCreateView(

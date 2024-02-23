@@ -1,4 +1,4 @@
-package com.angelme.pokedex.ui
+package com.angelme.pokedex.ui.pokedex
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class PokedexViewModel @Inject constructor(
     private val getPokemonUseCase: GetPokemonUseCase,
 ) : ViewModel() {
 

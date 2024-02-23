@@ -1,17 +1,20 @@
 package com.angelme.pokedex.repository
 
 import com.angelme.pokedex.repository.local.LocalDataSource
+import com.angelme.pokedex.repository.remote.Authenticator
 import com.angelme.pokedex.repository.remote.RemoteDataSource
 import com.angelme.pokedex.ui.model.Pokemon
 import com.angelme.pokedex.ui.model.PokemonGeneration
 import com.angelme.pokedex.util.Generation
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DefaultRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
-) : PokemonRepository {
+    private val localDataSource: LocalDataSource,
+    private val authenticator: Authenticator
+) : PokemonRepository, Authenticator {
     override suspend fun getPokemonByGeneration(generation: Generation): PokemonGeneration =
         remoteDataSource.getPokemonListByGeneration(generation)
 
@@ -27,4 +30,20 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun lostPokemon(pokemon: Pokemon) =
         localDataSource.lostPokemon(pokemon)
+
+    override suspend fun signInWithEmailAndPassword(
+        email: String,
+        password: String
+    ): FirebaseUser? = authenticator.signInWithEmailAndPassword(email, password)
+
+    override suspend fun signUpWithEmailAndPassword(
+        email: String,
+        password: String
+    ): FirebaseUser? = authenticator.signUpWithEmailAndPassword(email, password)
+
+    override fun signOut(): FirebaseUser? = authenticator.signOut()
+
+    override fun getUser(): FirebaseUser? = authenticator.getUser()
+
+    override suspend fun sendResetPassword(email: String) = authenticator.sendResetPassword(email)
 }

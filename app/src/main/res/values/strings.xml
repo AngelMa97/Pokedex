@@ -20,4 +20,10 @@
     <string name="capture_pokemon">Capture Pokemon</string>
     <string name="you_haven_t_added_any_pokemon_yet">You haven´t added any Pokemon yet, you could add Pokemon to your list using the pokemon detail view</string>
     <string name="search_a_pokemon">Search a pokemon</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="don_t_have_a_account_yet">Don\'t have a account yet?, Sign up for free</string>
+    <string name="sign_up">Sign up</string>
+    <string name="log_in">Log in</string>
+    <string name="cancel">Cancel</string>
 </resources>
