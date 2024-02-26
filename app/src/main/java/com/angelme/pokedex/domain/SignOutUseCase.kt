@@ -6,5 +6,5 @@ import javax.inject.Inject
 class SignOutUseCase @Inject constructor(
     private val authenticator: Authenticator
 ) {
-    suspend operator fun invoke() = authenticator.signOut()
+    operator fun invoke() = authenticator.signOut()
 }

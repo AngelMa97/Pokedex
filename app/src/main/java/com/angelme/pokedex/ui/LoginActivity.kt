@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.ActivityLoginBinding
 import com.angelme.pokedex.repository.WorkResult
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             signUpLabel.setOnClickListener {
                 setUpSignUpView()
             }
-            loadingView.hide()
+            loadingLoginView.hide()
         }
     }
 
@@ -58,24 +59,27 @@ class LoginActivity : AppCompatActivity() {
             btnCancel.setOnClickListener {
                 setUpSignInView()
             }
-            loadingView.hide()
+            loadingLoginView.hide()
         }
     }
 
     private fun setObservers() {
         binding.apply {
             viewModel.uiState.observe(this@LoginActivity) {
-                when(it) {
+                when (it) {
                     is WorkResult.Error -> {
-                        loadingView.hide()
-                        Toast.makeText(this@LoginActivity, it.exception.message, Toast.LENGTH_SHORT).show()
-
+                        loadingLoginView.hide()
+                        Snackbar.make(
+                            binding.root,
+                            it.exception.message ?: "Unknown error",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
-                    WorkResult.Loading -> loadingView.show()
+
+                    WorkResult.Loading -> loadingLoginView.show()
                     is WorkResult.Success -> {
                         binding.apply {
-                            loadingView.hide()
-                            Toast.makeText(this@LoginActivity, "User logged in successfully", Toast.LENGTH_SHORT).show()
+                            loadingLoginView.hide()
                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         }
                     }

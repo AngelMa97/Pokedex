@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angelme.pokedex.domain.CreateUserWithEmailAndPasswordUseCase
+import com.angelme.pokedex.domain.GetUserUseCase
 import com.angelme.pokedex.domain.SignInWithEmailAndPasswordUseCase
 import com.angelme.pokedex.repository.WorkResult
 import com.google.firebase.auth.FirebaseUser
@@ -16,7 +17,8 @@ import kotlin.Exception
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val signInWithEmailAndPasswordUseCase: SignInWithEmailAndPasswordUseCase,
-    private val createUserWithEmailAndPasswordUseCase: CreateUserWithEmailAndPasswordUseCase
+    private val createUserWithEmailAndPasswordUseCase: CreateUserWithEmailAndPasswordUseCase,
+    private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
 
     private var _uiState = MutableLiveData<WorkResult<FirebaseUser>>()
@@ -52,5 +54,14 @@ class LoginViewModel @Inject constructor(
                 _uiState.postValue(WorkResult.Error(ex))
             }
         }
+    }
+
+    fun getLoggedUser() {
+        val result = getUserUseCase()
+        result?.let { _uiState.postValue(WorkResult.Success(it)) }
+    }
+
+    init {
+        getLoggedUser()
     }
 }

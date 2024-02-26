@@ -10,12 +10,13 @@ import com.angelme.pokedex.R
 import com.angelme.pokedex.databinding.ActivityMainBinding
 import com.angelme.pokedex.repository.WorkResult
 import com.angelme.pokedex.ui.pokedex.PokedexViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: PokedexViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +31,38 @@ class MainActivity : AppCompatActivity() {
 
     private fun setViews() {
         val navController = this.findNavController(R.id.navigation_host)
-        binding.bottomNavigationView.setupWithNavController(navController)
+        binding.apply {
+            progressMainIndicator.hide()
+            bottomNavigationView.setupWithNavController(navController)
+            topAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.logout -> {
+                        viewModel.signOut()
+                        true
+                    }
+                    R.id.sync -> {
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
     }
 
     private fun setObservers() {
-        viewModel.iuState.observe(this@MainActivity) {
+        viewModel.uiState.observe(this@MainActivity) {
             when(it) {
-                is WorkResult.Loading -> binding.progressIndicator.show()
-                else -> binding.progressIndicator.hide()
+                is WorkResult.Success -> {
+                    binding.progressMainIndicator.hide()
+                    if (it.data == null) {
+                        finish()
+                    }
+                }
+                is WorkResult.Error -> {
+                    binding.progressMainIndicator.hide()
+                    Snackbar.make(binding.root, it.exception.message ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                }
+                is WorkResult.Loading -> binding.progressMainIndicator.show()
             }
         }
     }

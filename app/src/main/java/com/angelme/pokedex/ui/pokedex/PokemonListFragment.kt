@@ -18,6 +18,7 @@ import com.angelme.pokedex.ui.pokemondetail.PokemonDetailActivity.Companion.POKE
 import com.angelme.pokedex.util.Generation
 import com.angelme.pokedex.util.PokemonType
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -86,6 +87,7 @@ class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
                 iuState.observe(viewLifecycleOwner) {
                     when (it) {
                         is WorkResult.Success -> {
+                            progressIndicator.hide()
                             pokedexList.adapter = PokedexAdapter(
                                 it.data, resources, requireContext(), this@PokemonListFragment
                             )
@@ -95,8 +97,12 @@ class PokemonListFragment : Fragment(), PokedexAdapter.PokedexItemListener {
                         is WorkResult.Loading -> {
                             pickGenerationButton.isEnabled = false
                             loadingOverlay.visibility = View.VISIBLE
+                            progressIndicator.show()
                         }
-                        else -> { }
+                        is WorkResult.Error -> {
+                            progressIndicator.hide()
+                            Snackbar.make(root, it.exception.message ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

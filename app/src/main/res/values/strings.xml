@@ -26,4 +26,6 @@
     <string name="sign_up">Sign up</string>
     <string name="log_in">Log in</string>
     <string name="cancel">Cancel</string>
+    <string name="sync_to_remote_db">Sync to remote DB</string>
+    <string name="logout">Logout</string>
 </resources>

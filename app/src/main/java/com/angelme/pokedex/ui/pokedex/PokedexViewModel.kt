@@ -26,8 +26,8 @@ class PokedexViewModel @Inject constructor(
     private var filters = mutableListOf<PokemonType>()
 
     fun getPokemonByGeneration(generation: Generation) {
-        _iuState.postValue(WorkResult.Loading)
-        viewModelScope.launch(Dispatchers.IO) {
+        _iuState.value = WorkResult.Loading
+        viewModelScope.launch {
             try {
                 val pokemonList = mutableListOf<Pokemon>()
                 for (i in 0..<generation.noPokemon) {
@@ -78,7 +78,9 @@ class PokedexViewModel @Inject constructor(
 
     fun removeAllFilters() {
         filters.clear()
-        _iuState.postValue(WorkResult.Success(pokemonListGeneration))
+        if (pokemonListGeneration.isNotEmpty()) {
+            _iuState.postValue(WorkResult.Success(pokemonListGeneration))
+        }
     }
 
     init {
