@@ -4,7 +4,9 @@ import com.angelme.pokedex.repository.DefaultRepository
 import com.angelme.pokedex.repository.PokemonRepository
 import com.angelme.pokedex.repository.local.LocalDataSource
 import com.angelme.pokedex.repository.local.RoomDataSource
+import com.angelme.pokedex.repository.remote.MyPokemonFirebaseDataSource
 import com.angelme.pokedex.repository.remote.RemoteDataSource
+import com.angelme.pokedex.repository.remote.RemoteMyPokemonDataSource
 import com.angelme.pokedex.repository.remote.RetrofitDataSource
 import dagger.Binds
 import dagger.Module
@@ -29,4 +31,9 @@ abstract class RepositoryModule {
     abstract fun bindLocalDatasource(
         roomDataSource: RoomDataSource
     ): LocalDataSource
+
+    @Binds
+    abstract fun bindRemoteMyPokemonDataSource(
+        myPokemonFirebaseDataSource: MyPokemonFirebaseDataSource
+    ): RemoteMyPokemonDataSource
 }

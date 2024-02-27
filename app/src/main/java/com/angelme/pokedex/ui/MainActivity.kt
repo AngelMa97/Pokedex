@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     R.id.sync -> {
+                        viewModel.syncStoredPokemon()
                         true
                     }
                     else -> false

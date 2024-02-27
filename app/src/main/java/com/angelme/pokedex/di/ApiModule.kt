@@ -8,6 +8,11 @@ import com.angelme.pokedex.repository.DefaultRepository
 import com.angelme.pokedex.repository.PokemonRepository
 import com.angelme.pokedex.repository.remote.RemoteDataSource
 import com.angelme.pokedex.repository.remote.RetrofitDataSource
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.database
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -68,4 +73,16 @@ object ApiModule {
 
     @Provides
     fun provideApiService(retrofit: Retrofit) = retrofit.create(PokedexService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideFirebaseDB(): FirebaseDatabase = Firebase.database
+
+    @Singleton
+    @Provides
+    fun provideFirebaseRef(
+        firebaseDatabase: FirebaseDatabase,
+        firebaseAuth: FirebaseAuth
+    ): DatabaseReference =
+        firebaseDatabase.getReference(firebaseAuth.currentUser?.uid ?: "default")
 }

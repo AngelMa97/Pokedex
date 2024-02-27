@@ -12,4 +12,6 @@ interface PokemonRepository {
     fun getMyPokemonById(id: Int): Flow<Pokemon?>
     suspend fun gotPokemon(pokemon: Pokemon)
     suspend fun lostPokemon(pokemon: Pokemon)
+    suspend fun getStoredPokemon(): List<Pokemon>
+    suspend fun syncStorePokemon(pokemonList: List<Pokemon>)
 }
